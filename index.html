@@ -1,61 +1,876 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Saya | Nama Anda</title>
-    <style>
-        /* CSS Sederhana & Elegan */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; color: #333; background-color: #f4f4f4; }
-        header { background: #2c3e50; color: white; padding: 2rem 0; text-align: center; }
-        .container { width: 80%; margin: auto; overflow: hidden; padding: 2rem 0; }
-        .card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .btn { display: inline-block; background: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }
-        .btn:hover { background: #2980b9; }
-        footer { text-align: center; padding: 2rem; background: #2c3e50; color: white; margin-top: 2rem; }
-        h2 { border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angga Irawan — Embedded Systems & Control Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink:    #0e0f0e;
+      --paper:  #f5f2ea;
+      --warm:   #ede9de;
+      --accent: #c84b1f;
+      --muted:  #7a766b;
+      --rule:   #ccc8bc;
+      --gap: clamp(2rem, 5vw, 5rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ─────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      opacity: .45;
+    }
+
+    /* ── HEADER ────────────────────────────────── */
+    header {
+      padding: 3rem var(--gap) 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 1rem;
+      border-bottom: 1.5px solid var(--rule);
+      position: sticky; top: 0; z-index: 100;
+      background: var(--paper);
+    }
+
+    .site-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      letter-spacing: -0.01em;
+    }
+
+    nav { display: flex; gap: 1.8rem; }
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* ── HERO ──────────────────────────────────── */
+    .hero {
+      padding: clamp(4rem, 10vw, 8rem) var(--gap) clamp(3rem, 8vw, 6rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+      min-height: 70vh;
+    }
+
+    .hero-left { position: relative; }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      margin-top: 2.5rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 38ch;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--rule);
+    }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    /* ── HERO RIGHT: STATS ─────────────────────── */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-left: 3rem;
+      border-left: 1.5px solid var(--rule);
+    }
+
+    .stat {
+      display: flex; flex-direction: column;
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      line-height: 1;
+      color: var(--ink);
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTIONS ──────────────────────────────── */
+    section {
+      padding: clamp(3rem, 8vw, 6rem) var(--gap);
+      border-top: 1.5px solid var(--rule);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── MOTIVATION (FEATURED) ─────────────────── */
+    .motivation-block {
+      background: var(--warm);
+      padding: 3rem;
+      border: 1.5px solid var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+    .motivation-block::before {
+      content: '\201C';
+      font-family: 'DM Serif Display', serif;
+      font-size: 12rem;
+      line-height: 1;
+      color: var(--rule);
+      position: absolute;
+      top: -1rem; left: 1.5rem;
+      pointer-events: none;
+    }
+
+    .motivation-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      line-height: 1.7;
+      color: var(--ink);
+      position: relative; z-index: 1;
+      max-width: 75ch;
+    }
+
+    /* ── INTEREST GRID ─────────────────────────── */
+    .interest-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: var(--rule);
+      border: 1.5px solid var(--rule);
+      margin-top: 1.5px;
+    }
+
+    .interest-card {
+      background: var(--paper);
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .interest-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--rule);
+      margin-bottom: 1rem;
+    }
+
+    .interest-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+      color: var(--ink);
+    }
+
+    .interest-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    @media (max-width: 768px) {
+      .interest-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── EXPERIENCE ────────────────────────────── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .timeline-item.animate-out { opacity: 0; transform: translateY(20px); }
+    .timeline-item.visible { opacity: 1; transform: none; }
+
+    .timeline-meta {
+      padding-top: 0.2rem;
+    }
+    .timeline-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+    .timeline-org {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .timeline-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .timeline-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .timeline-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--rule);
+      padding: 0.2rem 0.6rem;
+      color: var(--muted);
+    }
+
+    /* ── SKILLS GRID ───────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px;
+      background: var(--rule);
+      border: 1.5px solid var(--rule);
+    }
+
+    .skill-card {
+      background: var(--paper);
+      padding: 2rem;
+    }
+
+    .skill-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .skill-list {
+      list-style: none;
+    }
+    .skill-list li {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--warm);
+      letter-spacing: 0.04em;
+    }
+    .skill-list li:last-child { border: none; }
+
+    /* ── PUBLICATIONS ──────────────────────────── */
+    .pub-list { display: flex; flex-direction: column; gap: 1.5px; background: var(--rule); border: 1.5px solid var(--rule); }
+
+    .pub-item {
+      background: var(--paper);
+      padding: 1.8rem 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .pub-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      padding-top: 0.1rem;
+      white-space: nowrap;
+    }
+
+    .pub-title {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .pub-venue {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── EDUCATION ─────────────────────────────── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: var(--rule);
+      border: 1.5px solid var(--rule);
+    }
+
+    .edu-card {
+      background: var(--paper);
+      padding: 2.5rem;
+    }
+
+    .edu-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.8rem;
+    }
+
+    .edu-degree {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      line-height: 1.25;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-school {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .edu-highlights {
+      list-style: none;
+    }
+    .edu-highlights li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px dotted var(--rule);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .edu-highlights li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+    .edu-highlights li:last-child { border: none; }
+
+    /* ── CONTACT / FOOTER ──────────────────────── */
+    footer {
+      padding: clamp(3rem, 8vw, 6rem) var(--gap);
+      border-top: 1.5px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 2rem;
+    }
+
+    .footer-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .footer-links {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      align-items: flex-end;
+    }
+
+    .footer-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .footer-link:hover { color: var(--accent); }
+
+    .footer-copy {
+      grid-column: 1 / -1;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 768px) {
+      header { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { border-left: none; border-top: 1.5px solid var(--rule); padding-left: 0; padding-top: 2rem; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; }
+      .footer-links { align-items: flex-start; }
+    }
+
+    /* ── FADE IN ANIMATION ─────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .hero-left > * {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-tag    { animation-delay: 0.1s; }
+    h1           { animation-delay: 0.2s; }
+    .hero-desc   { animation-delay: 0.35s; }
+    .hero-cta    { animation-delay: 0.5s; }
+
+    .hero-right .stat:nth-child(1) { animation: fadeUp 0.6s 0.4s ease both; }
+    .hero-right .stat:nth-child(2) { animation: fadeUp 0.6s 0.55s ease both; }
+    .hero-right .stat:nth-child(3) { animation: fadeUp 0.6s 0.7s ease both; }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>Halo, Saya [Nama Anda]</h1>
-        <p>Web Developer | Designer | Tech Enthusiast</p>
-    </header>
+<!-- HEADER -->
+<header>
+  <div class="site-name">Angga Irawan</div>
+  <nav>
+    <a href="#motivation">Interests</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#publications">Publications</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <div class="container">
-        <section id="about">
-            <h2>Tentang Saya</h2>
-            <p>Saya adalah seorang profesional yang berfokus pada pengembangan solusi digital yang kreatif dan efisien. Berpengalaman dalam mengerjakan proyek berbasis web dan manajemen data.</p>
-        </section>
+<!-- HERO -->
+<section class="hero" style="border-top:none;">
+  <div class="hero-left">
+    <p class="hero-tag">Embedded Systems · Control · Intelligent Edge</p>
+    <h1>Embedded<br><em>Systems</em><br>&amp; Control.</h1>
+    <p class="hero-desc">
+      Over ten years bridging control theory, machine learning, and low-level firmware — 
+      from inverter electronics to 5,000+ IoT field deployments.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:anggairawan18@gmail.com" class="btn btn-primary">Get in Touch →</a>
+      <a href="https://linkedin.com/in/anggairawan/" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      <a href="https://github.com/anggairawan" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat">
+      <span class="stat-num">10<span style="color:var(--accent)">+</span></span>
+      <span class="stat-label">Years of Experience</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5k<span style="color:var(--accent)">+</span></span>
+      <span class="stat-label">IoT Devices Deployed</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Peer-Reviewed Publications</span>
+    </div>
+  </div>
+</section>
 
-        <section id="projects">
-            <h2>Proyek Unggulan</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>Nama Proyek 1</h3>
-                    <p>Deskripsi singkat tentang apa yang Anda buat di proyek ini dan teknologi yang digunakan.</p>
-                    <a href="#" class="btn">Lihat Demo</a>
-                </div>
-                <div class="card">
-                    <h3>Nama Proyek 2</h3>
-                    <p>Membangun sistem otomasi menggunakan Python untuk meningkatkan efisiensi kerja tim.</p>
-                    <a href="#" class="btn">Lihat Kode</a>
-                </div>
-            </div>
-        </section>
+<!-- RESEARCH INTERESTS -->
+<section id="motivation">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>Research Interests</h2>
+  </div>
 
-        <section id="contact">
-            <h2>Hubungi Saya</h2>
-            <p>Email: <strong>emailanda@gmail.com</strong></p>
-            <p>LinkedIn: <a href="#">linkedin.com/in/username</a></p>
-        </section>
+  <div class="motivation-block" style="margin-bottom: 1.5px;">
+    <p class="motivation-text">
+      My research sits at the intersection of control theory, embedded computing, and deployable machine intelligence — 
+      asking how algorithmic decision-making can be made to run reliably on the hardware that actually exists 
+      in the physical world.
+    </p>
+  </div>
+
+  <div class="interest-grid">
+
+    <div class="interest-card">
+      <div class="interest-num">I</div>
+      <h3>Deployable Intelligence on Resource-Constrained Hardware</h3>
+      <p>From my MSc thesis on representing symbolic controllers with deep neural networks to recent embedded ML 
+      work with Edge Impulse, I am drawn to the fundamental question of how learned or rule-based decision models 
+      can be compressed, approximated, and executed under strict memory and compute budgets — without sacrificing 
+      safety or correctness guarantees.</p>
     </div>
 
-    <footer>
-        <p>&copy; 2024 [Nama Anda]. Dibuat dengan GitHub Pages.</p>
-    </footer>
+    <div class="interest-card">
+      <div class="interest-num">II</div>
+      <h3>Real-Time Control &amp; Hybrid Systems</h3>
+      <p>My work spans fixed-point power electronics control, attitude estimation for UAVs and rockets, 
+      and deterministic firmware scheduling for thousands of field-deployed IoT nodes. I am interested in 
+      how hybrid and symbolic control frameworks can bridge formal guarantees with practical real-time 
+      implementation on microcontroller-class platforms.</p>
+    </div>
 
+    <div class="interest-card">
+      <div class="interest-num">III</div>
+      <h3>Distributed &amp; Autonomous Embedded Systems</h3>
+      <p>Operating 5,000+ IoT devices under intermittent connectivity taught me that robustness and 
+      scalability in autonomous systems demand more than a good algorithm — they require hardware–software 
+      co-design, offline-capable state machines, and rigorous validation pipelines. I am interested in 
+      extending these principles toward autonomous, distributed robotic systems.</p>
+    </div>
+
+    <div class="interest-card">
+      <div class="interest-num">IV</div>
+      <h3>Hardware–Software Co-Design for Intelligent Systems</h3>
+      <p>From PCB layout to RTOS scheduling to ML model quantization, I approach intelligent systems as 
+      vertically integrated problems. My interest lies in the co-engineering of electronics, firmware, 
+      and learning algorithms — treating the physical platform as a first-class design constraint rather 
+      than an afterthought.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Work Experience</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-period">Mar 2025 – Dec 2025</div>
+        <div class="timeline-org">eFishery · Bandung, ID</div>
+      </div>
+      <div class="timeline-body">
+        <h3>IoT Consultant — Technical Due Diligence</h3>
+        <p>Provided technical assessment of embedded and IoT architectures during business closure and asset evaluation. Evaluated system scalability, firmware maintainability, and deployment readiness for prospective acquirers.</p>
+        <div class="timeline-tags">
+          <span class="tag">IoT Architecture</span>
+          <span class="tag">Technical Assessment</span>
+          <span class="tag">Firmware Review</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-period">Jan 2023 – Feb 2025</div>
+        <div class="timeline-org">eFishery · Bandung, ID</div>
+      </div>
+      <div class="timeline-body">
+        <h3>Lead Embedded IoT Firmware Engineer</h3>
+        <p>Led firmware architecture for 5,000+ distributed IoT feeder devices operating under intermittent connectivity. Designed deterministic task scheduling and MQTT-based communication over cellular networks. Developed HIL validation framework for large-scale device deployment.</p>
+        <div class="timeline-tags">
+          <span class="tag">ARM Cortex</span>
+          <span class="tag">MQTT</span>
+          <span class="tag">RTOS</span>
+          <span class="tag">HIL Testing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-period">Feb 2019 – Dec 2022</div>
+        <div class="timeline-org">eFishery · Bandung, ID</div>
+      </div>
+      <div class="timeline-body">
+        <h3>Embedded IoT Firmware Engineer</h3>
+        <p>Developed embedded firmware for next-generation automatic feeding systems. Designed Wi-Fi to cellular gateway enabling offline-first operation and cloud synchronization. Implemented motor control, protection mechanisms, and embedded HMI interfaces.</p>
+        <div class="timeline-tags">
+          <span class="tag">C/C++</span>
+          <span class="tag">Motor Control</span>
+          <span class="tag">Gateway Design</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <div class="timeline-period">Sep 2013 – Jul 2015</div>
+        <div class="timeline-org">PT Len Industri · Bandung, ID</div>
+      </div>
+      <div class="timeline-body">
+        <h3>Embedded Control Engineer</h3>
+        <p>Designed PCB and developed embedded control firmware for a 5 kW transformerless bidirectional inverter. Implemented fixed-point voltage/current control algorithms and PLL synchronization in C. Designed and validated droop control mechanisms for distributed load sharing.</p>
+        <div class="timeline-tags">
+          <span class="tag">PCB Design</span>
+          <span class="tag">Fixed-Point Arithmetic</span>
+          <span class="tag">Power Electronics</span>
+          <span class="tag">PLL</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Education</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2015 – 2018</div>
+      <div class="edu-degree">MSc Embedded Systems<br><span style="font-style:italic;color:var(--accent)">Control Systems Track</span></div>
+      <div class="edu-school">TU Delft · Delft, Netherlands</div>
+      <ul class="edu-highlights">
+        <li>Thesis: Symbolic controller representation using deep neural networks for embedded deployment</li>
+        <li>Nonlinear control, hybrid systems, real-time embedded systems, knowledge-based control</li>
+        <li>Summer research: Room-level occupancy prediction from smart-meter data</li>
+        <li>Embedded quadrotor attitude estimation and control in C on microcontroller</li>
+        <li>Optimized Canny Edge Detection on BeagleBoard — 2.5× speed improvement</li>
+      </ul>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2009 – 2013</div>
+      <div class="edu-degree">BSc Electrical Engineering<br><span style="font-style:italic;color:var(--accent)">Control Systems Focus</span></div>
+      <div class="edu-school">Bandung Institute of Technology · Indonesia</div>
+      <ul class="edu-highlights">
+        <li>Final Project: Three-loop autopilot (attitude–velocity–position) for UAV, validated via HIL simulation</li>
+        <li>Designed AHRS for rocket attitude monitoring and surveillance system</li>
+        <li>Real-time embedded firmware interfacing a MATLAB flight dynamics model</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Technical Expertise</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon">⚙️</div>
+      <h3>Control Systems</h3>
+      <ul class="skill-list">
+        <li>Nonlinear Control</li>
+        <li>Hybrid Systems</li>
+        <li>Model-Based Design</li>
+        <li>Symbolic Control</li>
+        <li>PID / State-Space</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🔧</div>
+      <h3>Embedded Systems</h3>
+      <ul class="skill-list">
+        <li>C / C++ Firmware</li>
+        <li>RTOS Design</li>
+        <li>ARM Cortex MCUs</li>
+        <li>Real-Time Execution</li>
+        <li>PCB Design (Altium)</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🧠</div>
+      <h3>Machine Learning</h3>
+      <ul class="skill-list">
+        <li>Neural Networks</li>
+        <li>Time-Series Modeling</li>
+        <li>Embedded ML (Edge Impulse)</li>
+        <li>TensorFlow / PyTorch</li>
+        <li>Feature Engineering</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon">🔬</div>
+      <h3>System Integration</h3>
+      <ul class="skill-list">
+        <li>Hardware-in-the-Loop Testing</li>
+        <li>Sensor Fusion / AHRS</li>
+        <li>Motor Control</li>
+        <li>IoT Communication</li>
+        <li>MATLAB / Simulink</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Publications</h2>
+  </div>
+  <div class="pub-list">
+    <div class="pub-item">
+      <div class="pub-year">2017</div>
+      <div>
+        <div class="pub-title">Predicting Room-Level Occupancy Using Smart-Meter Data</div>
+        <div class="pub-venue">International Journal of Distributed Systems and Technologies (IJDST) — Vol. 8, Issue 4</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2014</div>
+      <div>
+        <div class="pub-title">Development of Transformerless 5 kW Bidirectional Inverter in PT. Len Industri</div>
+        <div class="pub-venue">2nd IEEE Conference on Power Engineering and Renewable Energy (ICPERE)</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2013</div>
+      <div>
+        <div class="pub-title">Three Loop Autopilot for Attitude Control System on Hardware In Loop Simulation</div>
+        <div class="pub-venue">3rd International Conference on Instrumentation, Communications, Information Technology, and Biomedical Engineering (ICICI-BME), IEEE</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-year">2013</div>
+      <div>
+        <div class="pub-title">Attitude Monitoring and Surveillance System for LAPAN Payload Test Rocket</div>
+        <div class="pub-venue">3rd International Conference on Instrumentation, Control and Automation, IEEE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div>
+    <p class="footer-headline">Let's build<br>something<br><em style="font-style:italic;color:var(--accent)">intelligent.</em></p>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:anggairawan18@gmail.com" class="footer-link">✉ anggairawan18@gmail.com</a>
+    <a href="tel:+6282119576770" class="footer-link">✆ +62 821-1957-6770</a>
+    <a href="https://linkedin.com/in/anggairawan/" target="_blank" class="footer-link">↗ linkedin.com/in/anggairawan</a>
+    <a href="https://github.com/anggairawan" target="_blank" class="footer-link">↗ github.com/anggairawan</a>
+  </div>
+  <div class="footer-copy">© 2026 Angga Irawan · Indonesia · Embedded Systems &amp; Control Engineer</div>
+</footer>
+
+<script>
+  // Staggered fade-in for timeline items using IntersectionObserver
+  (function() {
+    var items = document.querySelectorAll('.timeline-item');
+    if (!items.length) return;
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry, i) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(18px)';
+            setTimeout(function() {
+              el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+            }, Array.prototype.indexOf.call(items, el) % 4 * 80);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.08 });
+      items.forEach(function(el) { observer.observe(el); });
+    }
+  })();
+</script>
 </body>
 </html>
