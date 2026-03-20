@@ -487,6 +487,49 @@
   </div>
   <div class="projects-grid">
 
+    <!-- PROJECT: Edge Impulse Motion Classifier -->
+    <div class="project-card">
+      <div class="project-media">
+        <div class="carousel" data-carousel>
+          <div class="carousel-track">
+            <div class="carousel-slide">
+              <video src="motion-detection.webm" autoplay muted loop playsinline></video>
+            </div>
+            <div class="carousel-slide">
+              <img src="edge-impulse-demo.jpg" alt="Edge Impulse motion classifier hardware setup with Arduino Nano 33 BLE Sense and OLED display">
+            </div>
+            <div class="carousel-slide">
+              <img src="ei-classifier.png" alt="Edge Impulse classifier training output — 98.6% accuracy">
+            </div>
+            <div class="carousel-slide">
+              <img src="ei-anomaly.png" alt="Edge Impulse anomaly detection settings">
+            </div>
+          </div>
+          <button class="carousel-btn prev">&#8592;</button>
+          <button class="carousel-btn next">&#8594;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-year">2026</span>
+          <span class="project-type">Course Project</span>
+        </div>
+        <h3>IMU-Based Motion Classifier on Microcontroller</h3>
+        <p>Designed and deployed a 3-class motion classifier (heavy / light / off) on an Arduino Nano 33 BLE Sense (Cortex-M4) using Edge Impulse. Trained a quantised int8 neural network on spectral features extracted from accelerometer data, achieving 98.6% validation accuracy with 1 ms inference time, 1.4 KB RAM, and 14.8 KB flash footprint. Extended the pipeline with a K-means anomaly detector to flag out-of-distribution motion patterns. Completed as part of the Edge AI for Microcontrollers specialization (Edge Impulse / Coursera).</p>
+        <div class="timeline-tags">
+          <span class="tag">Edge Impulse</span>
+          <span class="tag">TensorFlow Lite</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">IMU</span>
+          <span class="tag">Quantisation</span>
+          <span class="tag">Anomaly Detection</span>
+          <span class="tag">Edge AI</span>
+        </div>
+      </div>
+    </div>
+
     <!-- PROJECT 1: eFishery IoT -->
     <div class="project-card">
       <div class="project-media">
